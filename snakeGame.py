@@ -9,8 +9,13 @@ black_color = pygame.Color(0, 0, 0)
 # Color for the food
 red_color = pygame.Color(255, 0, 0)
 
-# Color for the snake
+# Color for snake
 snake_color = pygame.Color(173, 255, 47)
+
+# Height and width for the window
+# Standard -> 640w x 480h
+w_width = 900
+w_height = 700
 
 
 # End the game
@@ -31,7 +36,7 @@ def main():
     fps_clock = pygame.time.Clock()
 
     # Creates the display screen and set a title
-    game_surface = pygame.display.set_mode((640, 480))
+    game_surface = pygame.display.set_mode((w_width, w_height))
     pygame.display.set_caption("Retro Snake")
 
     snake_position = [140, 100]
@@ -102,7 +107,7 @@ def main():
             food_position = [int(x)*20, int(y)*20]
             food_flag = 1
 
-        # Creating and filling surface with objects
+        # Creating and filling surface
         game_surface.fill(black_color)
 
         # Snake body
@@ -113,7 +118,7 @@ def main():
         pygame.draw.rect(game_surface, red_color, Rect(food_position[0], food_position[1], 20, 20))
 
         # Show points
-        game_surface.blit(font.render('Score: ' + str(score), 1, red_color), (0, 460))
+        game_surface.blit(font.render('Score: ' + str(score), 1, red_color), (0, w_height-20))
 
         # Display
         pygame.display.flip()
@@ -122,9 +127,9 @@ def main():
         fps_clock.tick(7)
 
         # GAME OVER
-        if snake_position[0] > 620 or snake_position[0] < 0:
+        if snake_position[0]+20 > w_width or snake_position[0] < 0:
             game_over()
-        elif snake_position[1] > 460 or snake_position[1] < 0:
+        elif snake_position[1]+20 > w_height or snake_position[1] < 0:
             game_over()
         elif snake_position in snake_body[1:]:
             game_over()
